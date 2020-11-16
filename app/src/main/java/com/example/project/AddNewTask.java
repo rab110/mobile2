@@ -22,9 +22,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.example.project.Adapters.ToDoAdapter;
 import com.example.project.model.ToDoModel;
 import com.example.project.Utils.DatabaseHandler;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -33,10 +30,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
     public static final String TAG = "ActionBottomDialog";
     private EditText newTaskText;
     private Button newTaskSaveButton;
-    DatabaseReference databasetable;
-    FirebaseAuth fAuth;
-    String user_ID;
-    String id;
 
     private DatabaseHandler db;
 
@@ -48,9 +41,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
-        databasetable= FirebaseDatabase.getInstance().getReference("task");
-        fAuth = FirebaseAuth.getInstance();
-        user_ID = fAuth.getCurrentUser().getUid();
     }
 
     @Nullable
@@ -114,15 +104,12 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 String text = newTaskText.getText().toString();
                 if(finalIsUpdate){
                     db.updateTask(bundle.getInt("id"), text);
-                    databasetable.child(user_ID).child(id).setValue(text);
                 }
                 else {
                     ToDoModel task = new ToDoModel();
                     task.setTask(text);
                     task.setStatus(0);
                     db.insertTask(task);
-                    id = databasetable.push().getKey();
-                    databasetable.child(user_ID).child(id).setValue(task);
                 }
                 dismiss();
             }

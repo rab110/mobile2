@@ -73,7 +73,7 @@ public class time_table extends AppCompatActivity implements MainContract.View {
                     ArrayList<Schedule> item = (ArrayList<Schedule>) data.getSerializableExtra("schedules");
                     timetable.add(item);
                     id = databasetable.push().getKey();
-                    databasetable.child(user_ID).child(id).setValue(item);
+                    databasetable.child(user_ID).setValue(item);
                 }
                 break;
             case REQUEST_EDIT:
