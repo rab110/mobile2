@@ -7,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.project.model.ToDoModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +26,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String STATUS = "status";
     private static final String CREATE_TODO_TABLE = "CREATE TABLE " + TODO_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TASK + " TEXT, "
             + STATUS + " INTEGER)";
-
+    DatabaseReference databasetable;
+    FirebaseAuth fAuth;
+    String user_ID;
+    String id;
     private SQLiteDatabase db;
 
     public DatabaseHandler(Context context) {
@@ -50,6 +58,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cv.put(TASK, task.getTask());
         cv.put(STATUS, 0);
         db.insert(TODO_TABLE, null, cv);
+
     }
 
     public List<ToDoModel> getAllTasks(){

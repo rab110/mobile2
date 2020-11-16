@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import com.example.project.contract.MainContract;
 import com.example.project.model.PrefManager;
 import com.example.project.presenter.MainPresenter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class time_table extends AppCompatActivity implements MainContract.View {
@@ -25,6 +28,10 @@ public class time_table extends AppCompatActivity implements MainContract.View {
     private LinearLayout addBtn;
     private MainContract.UserActions mainPresenter;
     private Context context;
+    DatabaseReference databasetable;
+    FirebaseAuth fAuth;
+    String user_ID;
+    String id;
 
     private TimetableView timetable;
 
@@ -35,6 +42,9 @@ public class time_table extends AppCompatActivity implements MainContract.View {
         context = this;
         mainPresenter = new MainPresenter(this);
         mainPresenter.setPrefManager(PrefManager.getInstance());
+        databasetable= FirebaseDatabase.getInstance().getReference("subject");
+        fAuth = FirebaseAuth.getInstance();
+        user_ID = fAuth.getCurrentUser().getUid();
 
         timetable = findViewById(R.id.timetable);
         timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
@@ -62,6 +72,8 @@ public class time_table extends AppCompatActivity implements MainContract.View {
                 if (resultCode == Edit_time_table.RESULT_OK_ADD) {
                     ArrayList<Schedule> item = (ArrayList<Schedule>) data.getSerializableExtra("schedules");
                     timetable.add(item);
+                    id = databasetable.push().getKey();
+                    databasetable.child(user_ID).child(id).setValue(item);
                 }
                 break;
             case REQUEST_EDIT:
