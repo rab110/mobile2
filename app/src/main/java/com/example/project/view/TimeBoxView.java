@@ -1,8 +1,10 @@
 package com.example.project.view;
 
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.os.Build;
 import androidx.annotation.Nullable;
 
@@ -10,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,6 +32,7 @@ import java.util.HashMap;
 
 import com.example.project.R;
 
+import static android.view.Gravity.END;
 import static com.example.project.util.DisplayUtil.dpToPx;
 
 public class TimeBoxView extends LinearLayout{
@@ -106,15 +110,15 @@ public class TimeBoxView extends LinearLayout{
         LinearLayout.LayoutParams viewParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         Spinner daySpinner = new Spinner(context, Spinner.MODE_DIALOG);
         daySpinner.setLayoutParams(viewParam);
-
         String[] day_array = getResources().getStringArray(R.array.days);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, day_array) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View v = super.getView(position, convertView, parent);
                 TextView tv = ((TextView) v);
-                tv.setTextColor(getResources().getColor(R.color.colorWeakBlack));
+                tv.setTextColor(getResources().getColor(R.color.H));
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, TIME_EDIT_TEXT_SIZE_SP);
+                tv.setTypeface(null, Typeface.BOLD);
                 return v;
             }
         };
@@ -139,8 +143,8 @@ public class TimeBoxView extends LinearLayout{
         TextView startView = new TextView(context);
         startView.setLayoutParams(viewParam);
         startView.setText(getTimeString(schedules.get(count).getStartTime().getHour(), schedules.get(count).getStartTime().getMinute()));
-
-        startView.setTextColor(getResources().getColor(R.color.colorWeakBlack));
+        startView.setTextColor(getResources().getColor(R.color.H));
+        startView.setTypeface(null, Typeface.BOLD);
         startView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TIME_EDIT_TEXT_SIZE_SP);
         //event
         startView.setOnClickListener(new View.OnClickListener() {
@@ -179,13 +183,14 @@ public class TimeBoxView extends LinearLayout{
         TextView endView = new TextView(context);
         endView.setLayoutParams(viewParam);
         endView.setText(getTimeString(schedules.get(count).getEndTime().getHour(), schedules.get(count).getEndTime().getMinute()));
-        endView.setTextColor(getResources().getColor(R.color.colorWeakBlack));
+        endView.setTextColor(getResources().getColor(R.color.H));
         endView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TIME_EDIT_TEXT_SIZE_SP);
+        endView.setTypeface(null, Typeface.BOLD);
         endView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                TimePickerDialog dialog = new TimePickerDialog(context, endListener, schedules.get(count).getStartTime().getHour(), schedules.get(count).getStartTime().getMinute(), false);
+                TimePickerDialog dialog = new TimePickerDialog(context, endListener, schedules.get(count).getEndTime().getHour(), schedules.get(count).getEndTime().getMinute(), false);
                 dialog.show();
             }
 
@@ -209,9 +214,8 @@ public class TimeBoxView extends LinearLayout{
         LinearLayout.LayoutParams marginParam = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         marginParam.leftMargin = dpToPx(15);
         deleteTime.setLayoutParams(marginParam);
-
         deleteTime.setBackground(getResources().getDrawable(R.drawable.baseline_clear_black_24));
-        deleteTime.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorWeakBlack)));
+        deleteTime.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
 
         deleteTime.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import com.example.project.Adapters.ToDoAdapter;
@@ -31,6 +32,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
     private EditText newTaskText;
     private Button newTaskSaveButton;
 
+
     private DatabaseHandler db;
 
     public static AddNewTask newInstance(){
@@ -41,6 +43,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
+
     }
 
     @Nullable
@@ -50,7 +53,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
         View view = inflater.inflate(R.layout.new_task, container, false);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
         return view;
     }
 
@@ -69,7 +71,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
             newTaskText.setText(task);
             assert task != null;
             if(task.length()>0)
-                newTaskSaveButton.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.whi));
+                newTaskSaveButton.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.white));
         }
 
         db = new DatabaseHandler(getActivity());
@@ -88,7 +90,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 }
                 else{
                     newTaskSaveButton.setEnabled(true);
-                    newTaskSaveButton.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.whi));
+                    newTaskSaveButton.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.white));
                 }
             }
 

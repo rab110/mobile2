@@ -35,7 +35,7 @@ public class TimetableView extends LinearLayout {
     private static final int DEFAULT_SIDE_HEADER_FONT_SIZE_DP = 13;
     private static final int DEFAULT_HEADER_FONT_SIZE_DP = 15;
     private static final int DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP = 15;
-    private static final int DEFAULT_STICKER_FONT_SIZE_DP = 13;
+    private static final int DEFAULT_STICKER_FONT_SIZE_DP = 12;
 
 
     private int rowCount;
@@ -152,12 +152,15 @@ public class TimetableView extends LinearLayout {
 
             RelativeLayout.LayoutParams param = createStickerParam(schedule);
             tv.setLayoutParams(param);
-            tv.setPadding(20, 0, 20, 0);
-            tv.setText(schedule.getClassTitle() + "\n" + schedule.getClassPlace());
+            tv.setPadding(10, 0, 10, 0);
+            tv.setText(schedule.getStartTime().getHour()+":"+schedule.getStartTime().getMinute()
+                    +"-" +schedule.getEndTime().getHour()+":"+schedule.getEndTime().getMinute()
+                    + "\n\n" + schedule.getClassTitle());
             tv.setTextColor(Color.parseColor("#FFFFFF"));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_STICKER_FONT_SIZE_DP);
             tv.setTypeface(null, Typeface.BOLD);
-            tv.setGravity(Gravity.CENTER);
+            tv.setGravity(Gravity.TOP);
+            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
             tv.setOnClickListener(new OnClickListener() {
                 @Override
@@ -262,7 +265,7 @@ public class TimetableView extends LinearLayout {
                     tv.setText(getHeaderTime(i));
                     tv.setTextColor(getResources().getColor(R.color.colorHeaderText));
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_SIDE_HEADER_FONT_SIZE_DP);
-                    tv.setBackgroundColor(getResources().getColor(R.color.colorHeader));
+                    tv.setBackgroundColor(getResources().getColor(R.color.colorTextInputBackground));
                     tv.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
                     tv.setLayoutParams(createTableRowParam(sideCellWidth, cellHeight));
                 } else {

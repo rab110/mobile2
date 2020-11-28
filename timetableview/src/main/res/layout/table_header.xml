@@ -5,5 +5,5 @@
         android:id="@+id/table_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"></TableLayout>
+        android:background="#F7F7F7"></TableLayout>
 </merge>

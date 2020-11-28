@@ -1,39 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    android:layoutDirection="rtl"
+    android:layout_gravity="right">
 
-        <TextView
-            android:id="@+id/tasksText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/whi"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:textSize="32sp"
-            android:text="المهام"
-            />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/task_actionbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.021" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tasksRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tasksText"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:nestedScrollingEnabled="true" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="6dp"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="329dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="52dp"
+            android:backgroundTint="@color/H"
+            android:layoutDirection="ltr"
+            android:src="@drawable/ic_baseline_add_24" />
+        <RelativeLayout
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:lottie_autoPlay="true"
+                android:layout_marginTop="150dp"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/list">
+            </com.airbnb.lottie.LottieAnimationView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="450dp"
+                android:text="لا يوجد مهام مضافه"
+                android:textSize="18sp"
+                android:textColor="@color/whi"
+                android:textAlignment="center"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="false"
-        android:layout_margin="32dp"
-        android:backgroundTint="@color/R"
-        android:src="@drawable/ic_baseline_add_24" />
-
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:id="@+id/nav_view"
+        android:background="@color/white"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/main_menu"
+        app:itemIconSize="27dp"
+        app:itemTextAppearance="@style/menu_text_style"
+        android:layout_gravity="start">
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>

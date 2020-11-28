@@ -1,5 +1,6 @@
 package com.example.project.presenter;
 
+import android.content.Context;
 import android.widget.Toast;
 
 import com.github.tlaabs.timetableview.Schedule;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.example.project.contract.EditContract;
+
+import es.dmoral.toasty.Toasty;
 
 public class EditPresenter implements EditContract.UserActions {
     private EditContract.View editView;
@@ -55,7 +58,6 @@ public class EditPresenter implements EditContract.UserActions {
         char[] checker = new char[60 * 24 * 5];
         for (int i = 0; i < 60 * 24 * 5; i++) checker[i] = 0;
 
-        //자신과의 검증
         for (int key : thisSchedule.keySet()) {
             Schedule schedule = thisSchedule.get(key);
             Time thisStartTime = schedule.getStartTime();
@@ -73,7 +75,6 @@ public class EditPresenter implements EditContract.UserActions {
         }
         for (int i = 0; i < 60 * 24 * 5; i++) checker[i] = 0;
 
-        //모든 스케줄 검증
         for (Schedule inner : allSchedules) {
             Time innerStartTime = inner.getStartTime();
             Time innerEndTime = inner.getEndTime();

@@ -19,10 +19,13 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:paddingStart="8dp"
-            android:buttonTint="@color/R"
+            android:buttonTint="@color/H"
             android:gravity="right|center"
             android:layoutDirection="rtl"
             tools:text="تجربه بسيطه"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/common_google_signin_btn_text_light_focused"
             />
 
     </RelativeLayout>

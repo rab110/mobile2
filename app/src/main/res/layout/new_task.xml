@@ -5,22 +5,25 @@
 
     <EditText
         android:id="@+id/newTaskText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="395dp"
+        android:layout_height="60dp"
         android:background="@null"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:hint="أضف مهمه جديدة" />
+        android:hint="أضف مهمه جديدة"
+        android:textColor="@color/common_google_signin_btn_text_light_focused"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <Button
         android:id="@+id/newTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/newTaskText"
-        android:textSize="16sp"
         android:layout_alignParentEnd="false"
-        android:background="@android:color/transparent"
+        android:background="@drawable/btn"
+        android:backgroundTint="@color/H"
         android:text="حفظ"
         android:textAllCaps="false"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

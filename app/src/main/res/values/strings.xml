@@ -1,31 +1,54 @@
 <resources>
-    <string name="app_name">جامعي</string>
-    <string name="email">Email</string>
-    <string name="createNew">إنشاء حساب جديد؟</string>
+    <string name="app_name">جدولي</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="createNew" translatable="false">إنشاء حساب جديد؟</string>
 
 
-<string-array name="days">
-<item>الاحد</item>
-<item>الاثنين</item>
-<item>الثلاثاء</item>
-<item>الاربعاء</item>
-<item>الخميس</item>
-</string-array>
+    <string-array name="days">
+        <item>الاحد</item>
+        <item>الاثنين</item>
+        <item>الثلاثاء</item>
+        <item>الاربعاء</item>
+        <item>الخميس</item>
+    </string-array>
 
-<string-array name="colors">
-<item>#f08676</item>
-<item>#ecc369</item>
-<item>#a7ca70</item>
-<item>#7dd1c1</item>
-<item>#7aa5e9</item>
-<item>#fbaa68</item>
-<item>#9f86e1</item>
-<item>#78cb87</item>
-<item>#d397ed</item>
-</string-array>
-    <string name="save">Save</string>
-    <string name="new_task">New Task</string>
-    <string name="tasks">Tasks</string>
+    <string-array name="colors">
+        <item>#f08676</item>
+        <item>#ecc369</item>
+        <item>#a7ca70</item>
+        <item>#7dd1c1</item>
+        <item>#7aa5e9</item>
+        <item>#fbaa68</item>
+        <item>#9f86e1</item>
+        <item>#78cb87</item>
+        <item>#d397ed</item>
+    </string-array>
+    <string name="save" translatable="false">Save</string>
+    <string name="new_task" translatable="false">New Task</string>
+    <string name="tasks" translatable="false">Tasks</string>
 
-<string name="timetable_repo">timetableRepo</string>
+    <string name="timetable_repo" translatable="false">timetableRepo</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+
+    <string name="hint_username" translatable="false">Username</string>
+    <string name="hint_password" translatable="false">Password</string>
+    <string name="button_sign_in" translatable="false">Sign in</string>
+    <string name="button_sign_up" translatable="false">Sign up</string>
+    <string name="button_send" translatable="false">Send</string>
+    <string name="text_forgot_password" translatable="false">Forgot password?</string>
+    <string name="text_signin_message" translatable="false">Hello, sign in to your account</string>
+    <string name="text_signin_social_media" translatable="false">Or Sign in using social media</string>
+    <string name="text_signup_social_media" translatable="false">Or Sign up using social media</string>
+    <string name="text_signin_signup" translatable="false">Don\'t have an account? <b>Sign up</b></string>
+    <string name="text_signup_terms" translatable="false">By signing up, you agree to our <b>terms and conditions</b></string>
+    <string name="text_signup_message" translatable="false">Hello, let\'s set up your account</string>
+
+    <string name="text_forgot_password_title" translatable="false">Forgot password? No worries</string>
+    <string name="text_forgot_password_message" translatable="false">We will send you a link to reset your password</string>
+
+    <string name="hint_email" translatable="false">Email</string>
+    <string name="hint_phone" translatable="false">Phone</string>
+    <string name="hint_confirm_password" translatable="false">Confirm Password</string>
 </resources>

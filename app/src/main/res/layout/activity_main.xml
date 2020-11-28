@@ -6,92 +6,182 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <include layout="@layout/background" />
 
-    <EditText
-        android:id="@+id/lo_Email"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        android:ems="10"
-        android:hint=" اللإيميل"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/lo_pass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbarThumbHorizontal="@null"
+        android:scrollbarThumbVertical="@null"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-57dp">
 
-    <EditText
-        android:id="@+id/lo_pass"
-        android:layout_width="371dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="30dp"
-        android:ems="10"
-        android:hint="كلمة المرور"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btnlogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lo_Email" />
 
-    <Button
-        android:id="@+id/btnlogin"
-        android:layout_width="325dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="27dp"
-        android:text="تسجيل الدخول"
-        app:layout_constraintBottom_toTopOf="@+id/forgetPass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lo_pass" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="476dp"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="7dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        android:layout_marginBottom="75dp"
-        android:text="تسجيل الدخول"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/lo_Email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/registerACT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="27dp"
-        android:text="@string/createNew"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgetPass" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@color/colorTextInputBackground"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
 
-    <TextView
-        android:id="@+id/forgetPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:text="نسيت كلمة المرور؟"
-        app:layout_constraintBottom_toTopOf="@+id/registerACT"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnlogin" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:hintEnabled="false">
 
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="145dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerACT" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lo_Email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:background="@android:color/transparent"
+                        android:drawableRight="@drawable/ic_baseline_mail_24"
+                        android:drawablePadding="12dp"
+                        android:hint="البريد الالكتروني"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:minWidth="320dp"
+                        android:minHeight="50dp"
+                        android:singleLine="true"
+                        android:textColor="@color/gray_dark"
+                        android:textStyle="bold"
+                        android:textAlignment="viewStart"
+                        tools:ignore="RtlCompat" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/colorTextInputBackground"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:hintEnabled="false"
+
+                    >
+
+                    <EditText
+                        android:id="@+id/lo_pass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:background="@android:color/transparent"
+                        android:drawableRight="@drawable/ic_baseline_lock_24"
+                        android:drawablePadding="12dp"
+                        android:hint="كلمة المرور"
+                        android:textStyle="bold"
+                        android:textColor="@color/gray_dark"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:minWidth="320dp"
+                        android:minHeight="50dp"
+                        android:textAlignment="textEnd"
+                        tools:ignore="RtlCompat" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/forgetPass"
+                    style="@style/TextyButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="50dp"
+                    android:text="نسيت كلمة المرور؟"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/H" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnlogin"
+                android:layout_width="342dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:accessibilityLiveRegion="polite"
+                android:background="@drawable/btn"
+                android:backgroundTint="@color/H"
+                android:text="تسجيل الدخول"
+                android:textColor="@color/colorHeader"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/registerACT"
+                android:layout_width="342dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:accessibilityLiveRegion="polite"
+                android:background="@drawable/btn"
+                android:textColor="@color/H"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="انشاء حساب جديد "
+                />
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="61dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="145dp"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="301dp"
+            android:layout_height="169dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="51dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="51dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

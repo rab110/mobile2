@@ -12,7 +12,8 @@
             android:id="@+id/actionbar_normal"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -20,24 +21,33 @@
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:text="الجدول"
-                android:textColor="@color/colorWeakBlack"
+                android:textColor="@color/H"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 />
 
-            <LinearLayout
+
+            <ImageView
                 android:id="@+id/addBtn"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:orientation="vertical"
-                android:gravity="center"
-                >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/baseline_add_black_24"
-                    android:backgroundTint="@color/colorMain"
-                    android:text="ADD" />
-            </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/baseline_add_black_24"
+                android:backgroundTint="@color/default_header_font_color"
+                android:text="ADD" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="6dp"
+                android:layoutDirection="rtl" />
         </RelativeLayout>
 
         <LinearLayout

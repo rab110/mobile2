@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
+import static maes.tech.intentanim.CustomIntent.customType;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(i);
+                customType(SplashActivity.this,"fadein-to-fadeout");
                 finish();
             }
         }, 2000);

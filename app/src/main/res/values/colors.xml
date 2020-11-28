@@ -7,6 +7,7 @@
     <color name="colorMain">#74a4f3</color>
     <color name="colorWeakBlack">#4f4f4f</color>
 
+
 <color name="colorPrimary">#FFFFFF</color>
 <color name="colorPrimaryDark">@android:color/holo_green_dark</color>
 <color name="colorAccent">#000000</color>
@@ -14,5 +15,10 @@
 <color name="R">#A7DBD8</color>
 <color name="H">#355C7D</color>
 <color name="wh">#E6E6E6</color>
-<color name="whi">#C0C0C0</color>
+<color name="whi">#B1AFAF</color>
+
+    <color name="colorBackground">#fff</color>
+    <color name="colorIcon">#cccccc</color>
+    <color name="colorTextInputBackground">#F7F7F7</color>
+    <color name="actionbarOpacity">#00000000</color>
 </resources>

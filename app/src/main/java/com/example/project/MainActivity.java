@@ -4,12 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -23,20 +27,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Text;
+import es.dmoral.toasty.Toasty;
 
-import static com.example.project.R.id.registerACT;
+import static maes.tech.intentanim.CustomIntent.customType;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String Tag = "project";
-    Button login;
+    Button login,registerBtn;
     EditText Lemail, Lpass;
-    TextView registerBtn, forgetBtn;
+    TextView forgetBtn;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
+    Animation scale_up, scale_down;
    //private int counter = 7;
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +57,22 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         registerBtn = findViewById(R.id.registerACT);
         forgetBtn = findViewById(R.id.forgetPass);
+
+        scale_up= AnimationUtils.loadAnimation(this,R.anim.scale_up);
+        scale_down= AnimationUtils.loadAnimation(this,R.anim.scale_down);
+
+        login.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                    login.startAnimation(scale_up);
+                }else if(event.getAction()==MotionEvent.ACTION_UP){
+                    login.startAnimation(scale_down);
+                }
+                return false;
+            }
+        });
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,45 +92,49 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Intent intent = new Intent(MainActivity.this, Home.class);
+                            progressBar.setVisibility(View.GONE);
+                            Toasty.success(getApplicationContext(), "", Toast.LENGTH_SHORT, true).show();
+                            Intent intent = new Intent(MainActivity.this, time_table.class);
                             startActivity(intent);
                         }
                         else {
-                            Toast.makeText(MainActivity.this, "نعتذر حدث خطأ, يرجى إعاده المحاولة لاحقا"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toasty.error(getApplicationContext(), "حدث خطأ، يرجى اعادة المحاولة", Toast.LENGTH_SHORT, true).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
             }
+
         });
 
         forgetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final EditText resetMail = new EditText(v.getContext());
-                AlertDialog.Builder passresetDialog = new AlertDialog.Builder(v.getContext());
+                AlertDialog.Builder passresetDialog = new AlertDialog.Builder(v.getContext(),R.style.AlertDialog);
                 passresetDialog.setTitle("إعاده تعيين كلمة المرور؟");
                 passresetDialog.setMessage("ادخل إيميلك للإستراد كلمة المرور");
                 passresetDialog.setView(resetMail);
-                passresetDialog.setPositiveButton("أعاده تعيين", new DialogInterface.OnClickListener() {
+                passresetDialog.setNegativeButton("أعاده تعيين", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String mail = resetMail.getText().toString();
                         fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, "تم إرسال رابط إعاده التعيين إلى إيميلك", Toast.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(), "تم إرسال رابط إعاده التعيين", Toast.LENGTH_SHORT, true).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(MainActivity.this, "حدث خطأ لم يتم إرسال رابط إعاده التعيين" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toasty.error(getApplicationContext(), "حدث خطأ الرجاء اعادة المحاولة", Toast.LENGTH_SHORT, true).show();
+
                             }
                         });
                         
                     }
                 });
-                passresetDialog.setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
+                passresetDialog.setPositiveButton("إلغاء", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -116,31 +143,25 @@ public class MainActivity extends AppCompatActivity {
                 passresetDialog.create().show();
             }
         });
-
+        registerBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                    registerBtn.startAnimation(scale_up);
+                }else if(event.getAction()==MotionEvent.ACTION_UP){
+                    registerBtn.startAnimation(scale_down);
+                }
+                return false;
+            }
+        });
      registerBtn.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
              startActivity(new Intent(getApplicationContext(), registration.class));
+             overridePendingTransition(R.anim.slide_left_in, R.anim.slide_out);
          }
      });
     }
-    /*public void login(){
-        String user=Lemail.getText().toString().trim();
-        String pass=password.getText().toString().trim();
-        if(user.equals("rab")&&pass.equals("1234")){
-            Intent home_in = new Intent(MainActivity.this, Home.class);
-            startActivity(home_in);
-        }
-        else {
-            counter-- ;
-            Toast.makeText(this,"كلمة السر غير صحيحة",Toast.LENGTH_LONG).show();
-            if ( counter==0){
-                Toast.makeText(this,"انتهى عدد المحاولات! حاول لفي وقت أخر",Toast.LENGTH_LONG).show();
-                login.setEnabled(false);
-            }
-        }
-    } */
-
 
     @Override
     protected void onStart() {

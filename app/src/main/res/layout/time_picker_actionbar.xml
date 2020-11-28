@@ -11,63 +11,63 @@
             android:layout_height="56dp"
             android:gravity="center_vertical"
             >
+
             <LinearLayout
                 android:id="@+id/back"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
-                android:orientation="vertical"
+                android:layout_marginLeft="346dp"
                 android:gravity="center"
-                >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/baseline_arrow_back_ios_black_24"
-                android:backgroundTint="@color/colorMain"
-                />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/back"
+                    android:backgroundTint="@color/default_header_font_color" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="اضافة"
-                android:textColor="@color/colorWeakBlack"
-                android:gravity="center"
                 android:layout_centerHorizontal="true"
-                />
+                android:gravity="center"
+                android:text="اضافة"
+                android:textColor="@color/H"
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:id="@+id/delete"
                 android:layout_width="46dp"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/add"
-                android:orientation="vertical"
+                android:layout_marginRight="330dp"
                 android:gravity="center"
-                android:visibility="gone"
-                >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/baseline_delete_outline_black_24"
-                android:backgroundTint="@color/colorMain"
-                />
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/baseline_delete_outline_black_24"
+                    android:backgroundTint="@color/errorColor" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/add"
                 android:layout_width="46dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:orientation="vertical"
+                android:layout_marginRight="360dp"
                 android:gravity="center"
-                >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/baseline_done_black_24"
-                android:backgroundTint="@color/colorMain"
-                />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/baseline_done_black_24"
+                    android:backgroundTint="@color/default_header_font_color" />
             </LinearLayout>
         </RelativeLayout>
 

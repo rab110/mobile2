@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single"
+        android:gravity="right"
+        >
+        <item
+            android:id="@+id/table"
+            android:icon="@drawable/icont"
+            android:title="الجدول">
+
+
+        </item>
+    <item
+        android:id="@+id/task"
+        android:icon="@drawable/task"
+        android:title="المهام">
+
+
+    </item>
+    <item
+    android:id="@+id/profile"
+    android:icon="@drawable/setting"
+    android:title="الإعدادات">
+</item>
+    </group>
+
+</menu>

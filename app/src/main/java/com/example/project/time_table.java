@@ -1,10 +1,20 @@
 package com.example.project;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.github.tlaabs.timetableview.Schedule;
@@ -15,25 +25,30 @@ import java.util.ArrayList;
 import com.example.project.contract.MainContract;
 import com.example.project.model.PrefManager;
 import com.example.project.presenter.MainPresenter;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static maes.tech.intentanim.CustomIntent.customType;
 
-public class time_table extends AppCompatActivity implements MainContract.View {
+
+public class time_table extends AppCompatActivity implements MainContract.View,NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_ADD = 1;
     public static final int REQUEST_EDIT = 2;
 
-    private LinearLayout addBtn;
+    private ImageView addBtn;
     private MainContract.UserActions mainPresenter;
     private Context context;
-    DatabaseReference databasetable;
     FirebaseAuth fAuth;
-    String user_ID;
-    String id;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+
 
     private TimetableView timetable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +57,23 @@ public class time_table extends AppCompatActivity implements MainContract.View {
         context = this;
         mainPresenter = new MainPresenter(this);
         mainPresenter.setPrefManager(PrefManager.getInstance());
-        databasetable= FirebaseDatabase.getInstance().getReference("subject");
         fAuth = FirebaseAuth.getInstance();
-        user_ID = fAuth.getCurrentUser().getUid();
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.table);
 
         timetable = findViewById(R.id.timetable);
         timetable.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
             @Override
             public void OnStickerSelected(int idx, ArrayList<com.github.tlaabs.timetableview.Schedule> schedules) {
-                mainPresenter.selectSticker(idx,schedules);
+                mainPresenter.selectSticker(idx, schedules);
             }
         });
         addBtn = findViewById(R.id.addBtn);
@@ -72,8 +95,6 @@ public class time_table extends AppCompatActivity implements MainContract.View {
                 if (resultCode == Edit_time_table.RESULT_OK_ADD) {
                     ArrayList<Schedule> item = (ArrayList<Schedule>) data.getSerializableExtra("schedules");
                     timetable.add(item);
-                    id = databasetable.push().getKey();
-                    databasetable.child(user_ID).setValue(item);
                 }
                 break;
             case REQUEST_EDIT:
@@ -93,14 +114,23 @@ public class time_table extends AppCompatActivity implements MainContract.View {
     @Override
     public void startEditActivityForAdd() {
         Intent i = new Intent(context, Edit_time_table.class);
-        i.putExtra("allSchedules",timetable.getAllSchedulesInStickers());
+        i.putExtra("allSchedules", timetable.getAllSchedulesInStickers());
         startActivityForResult(i, REQUEST_ADD);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public void startEditActivityForEdit(int idx, ArrayList<Schedule> schedules) {
         Intent i = new Intent(this, Edit_time_table.class);
-        i.putExtra("idx",idx);
+        i.putExtra("idx", idx);
         i.putExtra("mode", REQUEST_EDIT);
         i.putExtra("allSchedules", timetable.getAllSchedulesInStickersExceptIdx(idx));
         i.putExtra("schedules", schedules);
@@ -114,6 +144,27 @@ public class time_table extends AppCompatActivity implements MainContract.View {
 
     @Override
     public void setDayHighlight(int day) {
-        if(day > 0) timetable.setHeaderHighlight(day);
+        if (day > 0) timetable.setHeaderHighlight(day);
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.table:
+                break;
+            case R.id.task:
+                Intent intent = new Intent(time_table.this, Main_task.class);
+                startActivity(intent);
+                customType(time_table.this,"right-to-left");
+                break;
+            case R.id.profile:
+                Intent in = new Intent(time_table.this, Home.class);
+                startActivity(in);
+                customType(time_table.this,"right-to-left");
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 }
