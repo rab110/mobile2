@@ -85,7 +85,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference avatarRed = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/avatar.jpg");
+        final StorageReference avatarRed = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/avatar.jpg");
         userID = fAuth.getCurrentUser().getUid();
          user = fAuth.getCurrentUser();
         delete = findViewById(R.id.delete);
@@ -103,7 +103,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         avatar = findViewById(R.id.user_avatar);
         scale_up= AnimationUtils.loadAnimation(this,R.anim.scale_up);
         scale_down= AnimationUtils.loadAnimation(this,R.anim.scale_down);
-
         avatarRed.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -119,6 +118,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
             }
         });
+
         avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,40 +182,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 passresetDialog.create().show();
             }
         });
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(v.getContext(),R.style.AlertDialog);
-                dialog.setTitle("هل انت متأكد؟");
-                dialog.setMessage("حذف الحساب سيؤدي الى حذف شامل لجميع بياناتك");
-                dialog.setNegativeButton("حذف", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Toasty.success(getApplicationContext(), "تم حذف الحساب", Toast.LENGTH_SHORT, true).show();
-                                    FirebaseAuth.getInstance().signOut();
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                    finish();
-                                }
-                                else {
-                                    Toasty.error(getApplicationContext(), "حدث خطأ، يرجى اعادة المحاولة", Toast.LENGTH_SHORT, true).show();
-                                }
-                            }
-                        });
-                    }
-                });
-                dialog.setPositiveButton("إلغاء", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.create().show();
-            }
-        });
 
         logout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -228,7 +194,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 return false;
             }
         });
-
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

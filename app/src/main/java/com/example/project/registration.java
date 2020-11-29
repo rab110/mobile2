@@ -111,6 +111,7 @@ public class registration extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
+                            progressBar.setVisibility(View.GONE);
                             Toasty.success(getApplicationContext(), "تم إنشاء الحساب", Toast.LENGTH_SHORT, true).show();
                             user_ID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStor.collection("users").document(user_ID);

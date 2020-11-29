@@ -61,7 +61,7 @@
                 android:layout_marginTop="450dp"
                 android:text="لا يوجد مهام مضافه"
                 android:textSize="18sp"
-                android:textColor="@color/whi"
+                android:textColor="@color/default_side_header_font_color"
                 android:textAlignment="center"/>
         </RelativeLayout>
 

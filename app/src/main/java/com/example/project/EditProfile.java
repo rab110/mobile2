@@ -2,10 +2,10 @@ package com.example.project;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
@@ -52,13 +52,16 @@ public class EditProfile extends AppCompatActivity {
     LinearLayout back;
     RelativeLayout deleteimg;
     StorageReference storageReference;
+    FirebaseFirestore fStore;
+    String userID;
+    Button delete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         Intent data = getIntent();
-        String name = data.getStringExtra("Name");
-        String email = data.getStringExtra("Email");
+        final String name = data.getStringExtra("Name");
+        final String email = data.getStringExtra("Email");
         fAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         Ename = findViewById(R.id.EditName);
@@ -66,14 +69,18 @@ public class EditProfile extends AppCompatActivity {
         Eavatar = findViewById(R.id.user_avatar);
         Save = findViewById(R.id.save);
         user = fAuth.getCurrentUser();
+        userID = fAuth.getCurrentUser().getUid();
         back = findViewById(R.id.back);
+        delete = findViewById(R.id.delete);
         Ename.setText(name);
         Eemail.setText(email);
+        fStore = FirebaseFirestore.getInstance();
         deleteimg=findViewById(R.id.deleteimg);
         Log.d(TAG, "onCreate: " + name + " " + email);
 
         storageReference = FirebaseStorage.getInstance().getReference();
         final StorageReference avatarRed = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/avatar.jpg");
+        final DocumentReference documentReference = fStore.collection("users").document(userID);
 
         avatarRed.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -102,12 +109,19 @@ public class EditProfile extends AppCompatActivity {
                 });
             }
         });
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(EditProfile.this, Home.class);
+                startActivity(in);
+            }
+        });
 
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Ename.getText().toString().isEmpty() || Eemail.getText().toString().isEmpty()){
+                if(Ename.getText().toString().isEmpty() || Eemail.getText().toString().isEmpty()
+                || Ename.getText().toString().equals(name)&&Eemail.getText().toString().equals(email) ){
                     Toasty.error(getApplicationContext(), "لم يتم تحديث البيانات", Toast.LENGTH_SHORT, true).show();
                     return;
                 }
@@ -139,11 +153,44 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
+
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(EditProfile.this, Home.class);
-                startActivity(in);
+                androidx.appcompat.app.AlertDialog.Builder dialog = new AlertDialog.Builder(v.getContext(),R.style.AlertDialog);
+                dialog.setTitle("هل انت متأكد؟");
+                dialog.setMessage("حذف الحساب سيؤدي الى حذف شامل لجميع بياناتك");
+                dialog.setNegativeButton("حذف", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()){
+                                            Intent it = new Intent(getApplicationContext(), MainActivity.class);
+                                            startActivity(it);
+                                            finish();
+                                            Toasty.success(getApplicationContext(), "تم حذف الحساب", Toast.LENGTH_SHORT, true).show();
+                                        }
+                                        else {
+                                            Toasty.error(getApplicationContext(), "حدث خطأ، يرجى اعادة المحاولة", Toast.LENGTH_SHORT, true).show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+                dialog.setPositiveButton("إلغاء", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.create().show();
             }
         });
 
@@ -174,7 +221,7 @@ public class EditProfile extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditProfile.this, "نعتذر حدث خطأ, يرجى إعاده المحاولة لاحقا", Toast.LENGTH_SHORT).show();
+                Toasty.error(getApplicationContext(), "حدث خطأ، يرجى اعادة المحاولة", Toast.LENGTH_SHORT, true).show();
             }
         });
     }
